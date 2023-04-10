@@ -1,5 +1,6 @@
 package util;
 
+import com.alibaba.fastjson.JSONArray;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.DomSerializer;
 import org.htmlcleaner.HtmlCleaner;
@@ -7,6 +8,7 @@ import org.htmlcleaner.TagNode;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -20,72 +22,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
 
 public class DownloadHtmlUtil {
-    public List<Map<String,Object>> DownloadHtml(String url) throws ParserConfigurationException, XPathExpressionException {
+    public List<Map<String,Object>> DownloadHtml(String url) throws ParserConfigurationException, XPathExpressionException, IOException {
         List<Map<String,Object>> rl = new ArrayList<Map<String,Object>>();
-        Connection connection = Jsoup.connect(url).timeout(3000);
-        String html = null;
-        try {
-            html = connection.get().body().html();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Connection.Response res = Jsoup.connect(url)
+                .header("Accept", "*/*")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("Accept-Language","zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
+                .header("Content-Type", "application/json;charset=UTF-8")
+                .header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0")
+                .timeout(10000).ignoreContentType(true).execute();//.get();
+
+        String body = res.body();
+        JSONObject jsonObject = JSONObject.parseObject(body);
+        String state = jsonObject.get("message").toString();
+        System.out.println(state + ":" + url);
+        JSONArray items = jsonObject.getJSONObject("data").getJSONArray("item");
+        for (int i = 0; i < items.size(); i++){
+            String item = items.getString(i);
+            JSONObject json_item = JSONObject.parseObject(item);
+            String school_name = json_item.getString("name");
+            String location = json_item.getString("province_name");
+            String level_name = json_item.getString("level_name");
+            String school_id = json_item.getString("school_id");
+            // todo 尽可能获取字段分析，并添加入rl中
         }
-        if(html==null) return rl;
-        System.out.println(html);
 
         return rl;
     }
 }
-//        // xpath
-//        String titleXpath = "//h1[@class='entry-title']/text()";
-//        String voteXpath = "//div/strong[1]/text()";
-//        String scoreXpath = "//strong[2]/text()";
-//        String introduceXpath = "//div[@class='entry-content']/p[1]";
-//        String urlXpath = "//p[2]/a/text()";
-//        String timeXpath = "//time[@class='entry-date']/text()";
-//        String detailXpath = "//footer[@class='entry-meta']/text()";
-//
-//        titleResult = PaserXpath(dom,titleXpath);
-//        voteResult = PaserXpath(dom,voteXpath);
-//        scoreResult = PaserXpath(dom,scoreXpath);
-//        introduceResult = PaserXpath(dom,introduceXpath);
-//        urlResult = PaserXpath(dom,urlXpath);
-//        if (urlResult.toString().length()>2){
-//            urlResult = PaserXpath(dom,urlXpath);
-//        }else{
-//            urlResult.add("invalid");
-//        }
-//        timeResult = PaserXpath(dom,timeXpath);
-//        detailResult = PaserXpath(dom,detailXpath);
-
-
-//        for (int i=0;i< titleResult.size();i++){
-//            Map<String,Object> temp = new HashMap<>();
-//            temp.put("detail",detailResult.get(i).replaceAll("\n",""));
-//            temp.put("time",timeResult.get(i));
-//            temp.put("url",urlResult.get(i));
-//            temp.put("introduce",introduceResult.get(i));
-//            temp.put("score",scoreResult.get(i));
-//            temp.put("vote",voteResult.get(i));
-//            temp.put("title",titleResult.get(i));
-//            rl.add(temp);
-//        }
-//
-//        return rl;
-//    }
-
-//    public List<String> PaserXpath(Document dom, String xph) throws XPathExpressionException {
-//
-//        XPath xPath = XPathFactory.newInstance().newXPath();
-//        List<String> result = new ArrayList<>();
-//        Object etContent = xPath.evaluate(xph,dom, XPathConstants.NODESET);
-//        NodeList nodelist = (NodeList) etContent;
-//        for(int i=0;i<nodelist.getLength();i++){
-//            Node node = nodelist.item(i);
-//            String val = node.getNodeValue()==null?node.getTextContent():node.getNodeValue();
-//            result.add(val);
-//        }
-//        return result;
-//    }
-//}
