@@ -1,22 +1,9 @@
 package util;
-
 import com.alibaba.fastjson.JSONArray;
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.DomSerializer;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.TagNode;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,11 +30,12 @@ public class DownloadHtmlUtil {
         for (int i = 0; i < items.size(); i++){
             String item = items.getString(i);
             JSONObject json_item = JSONObject.parseObject(item);
-            String school_name = json_item.getString("name");
-            String location = json_item.getString("province_name");
-            String level_name = json_item.getString("level_name");
-            String school_id = json_item.getString("school_id");
-            // todo 尽可能获取字段分析，并添加入rl中
+            Map<String, Object> temp = new HashMap<>();
+            temp.put("school_name", json_item.getString("name"));
+            temp.put("location", json_item.getString("province_name"));
+            temp.put("level_name", json_item.getString("level_name"));
+            temp.put("school_id", json_item.getString("school_id"));
+            rl.add(temp);
         }
 
         return rl;
