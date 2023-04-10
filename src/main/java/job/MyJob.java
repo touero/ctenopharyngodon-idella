@@ -11,7 +11,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import reduce.MyReducer;
 
 
+
+import java.io.File;
 import java.io.IOException;
+
+import static org.apache.hadoop.hdfs.server.common.Storage.deleteDir;
 
 public class MyJob {
 
@@ -29,15 +33,38 @@ public class MyJob {
         job.setMapOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
 
-        job.setJobName("CrawlerTask");
+        job.setJobName("CrawlerSchoolAll");
 
+        Boolean IsInHadoop = Boolean.FALSE;
+
+        if (IsInHadoop){
         FileInputFormat.setInputPaths(job, new Path("/Input/url.txt"));
         FileOutputFormat.setOutputPath(job, new Path("/scrapyOutput"));
-//        FileInputFormat.setInputPaths(job,"D:/hadoop/input/url.txt");
-//        FileOutputFormat.setOutputPath(job,new Path("D:/hadoop/output/Scrapydata"));
+        }
+        else {
+
+            FileInputFormat.setInputPaths(job, "InputFile/shoolUrl.txt");
+            File directory = new File("D:\\hadoopTest\\ScrapySchoolAll\\OutputFile");
+            if (directory.exists()) {
+                File[] files = directory.listFiles();
+                assert files != null;
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteDir(file);
+                    } else {
+                        file.delete();
+                        System.out.println(file.getName() + "：：文件已删除");
+                    }
+                }
+                //最终把该目录也删除
+                directory.delete();
+                System.out.println(directory.getName() + "：：目录已删除");
+            }
+            FileOutputFormat.setOutputPath(job, new Path("OutputFile"));
 
 
-        boolean flag = job.waitForCompletion(true);
-        System.exit(flag?0:1);
+            boolean flag = job.waitForCompletion(true);
+            System.exit(flag ? 0 : 1);
+        }
     }
 }
