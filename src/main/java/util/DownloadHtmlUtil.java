@@ -43,7 +43,7 @@ public class DownloadHtmlUtil {
             String school_site = school_info.get("school_site").toString();
             String content = school_info.get("content").toString();
             String school_major_url = base_url + ("/school/school_id/pc_special.json")
-                    .replace("shool_id",school_id);
+                    .replace("school_id",school_id);
             getSchoolMajor(school_major_url);
             getSchoolScore(school_id);
 
