@@ -3,5 +3,7 @@
 ### 1.通过api和js逆向获取首页学校数据，数据较少
 ### ~~2.通过1信息下的school_id重新构成学校详细的url~~
 #### 但利用jsoup访问url后发现数据还是从js加载而来，故2失败
-### 3.通过获取到的school_id重构url访问借口访问
+### ~~3.mapreduce下进行selenium~~
+#### 但利用selenium会出现利用port过多和port占用问题
+### 4.通过获取到的school_id重构url访问借口访问
 ps: 学习用途

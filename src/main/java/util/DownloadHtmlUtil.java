@@ -35,14 +35,17 @@ public class DownloadHtmlUtil {
             String type_name = json_item.get("type_name").toString();
             String dual_class_name = json_item.get("dual_class_name").toString();
             String base_url = "https://static-data.gaokao.cn/www/2.0";
-            String school_info_url = base_url + ("/school/school_id/info.json").replace("school_id", school_id);
+            String school_info_url = base_url + ("/school/school_id/info.json")
+                    .replace("school_id", school_id);
             JSONObject school_info = getJsonObject(school_info_url);
+            System.out.println(school_info.get("message").toString() + school_info_url);
             String address = school_info.get("address").toString();
             String school_site = school_info.get("school_site").toString();
             String content = school_info.get("content").toString();
-            String school_major_url = base_url + ("/school/school_id/pc_special.json").replace("shool_id",school_id);
-            // fixme return type
+            String school_major_url = base_url + ("/school/school_id/pc_special.json")
+                    .replace("shool_id",school_id);
             getSchoolMajor(school_major_url);
+            getSchoolScore(school_id);
 
 
         }
@@ -53,9 +56,42 @@ public class DownloadHtmlUtil {
         return rl;
     }
 
+    private void getSchoolScore(String school_id) throws IOException {
+        String score_url = "https://api.eol.cn/web/api/" +
+                "?e_sort=zslx_rank,min&e_sorttype=desc," +
+                "desc&local_province_id&local_type_id=1&" +
+                "pag1&school_id=args&size&" +
+                "uri=apidata/api/gk/score/province&" +
+                "year=2022&signsafe=61631c0843e48e52f2b238637cf68f65"
+                        .replace("args", school_id);
+        JSONObject school_score = getJsonObject(score_url);
+        JSONArray items = school_score.getJSONObject("data").getJSONArray("item");
+        for (int i = 0; i < items.size(); i++) {
+            String item = items.getString(i);
+            JSONObject school_score_item = JSONObject.parseObject(item);
+            // todo
+        }
+    }
+
     private void getSchoolMajor(String school_major_url) throws IOException {
-        JSONObject school_major_items = getJsonObject(school_major_url);
-        // todo get major
+        List<String> major = new ArrayList<String>();
+        JSONObject school_major_data = getJsonObject(school_major_url);
+        System.out.println(school_major_data.get("message").toString() + school_major_url);
+        JSONArray school_major_items = school_major_data.getJSONObject("data")
+                .getJSONObject("special_detail").
+                getJSONArray("2");
+        for (int j = 0 ; j < school_major_items.size(); j++){
+            String temp_major = school_major_items.getString(j);
+            JSONObject school_major_item = JSONObject.parseObject(temp_major);
+            String special_name = school_major_item.get("special_name").toString();
+            String limit_year = school_major_item.get("limit_year").toString();
+            String type_name = school_major_item.get("type_name").toString();
+            String level2_name = school_major_item.get("level2_name").toString();
+            // todo return type
+
+
+        }
+
 
     }
 
