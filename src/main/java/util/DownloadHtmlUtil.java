@@ -1,5 +1,6 @@
 package util;
 import com.alibaba.fastjson.JSONArray;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,12 +34,12 @@ public class DownloadHtmlUtil {
             if (dual_class_name.length()==0){
                 dual_class_name = null;
             }
-            JSONObject school_info = getJsonObject(Url.SCHOOL_INFO_URL.getUrl(school_id)).getJSONObject("data");
+            JSONObject school_info = getJsonObject(Url.SCHOOL_INFO_URL.value(school_id)).getJSONObject("data");
             String address = school_info.getString("address");
             String school_site = school_info.getString("school_site");
             String content = school_info.getString("content");
-            getSchoolMajor(Url.SCHOOL_MAJOR_URL.getUrl(school_id));
-            getSchoolScore(Url.SCHOOL_SCORE_URL.getUrl(school_id));
+            getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
+            getSchoolScore(Url.SCHOOL_SCORE_URL.value(school_id));
 
 
 
@@ -81,14 +82,14 @@ public class DownloadHtmlUtil {
 
     }
 
-    private JSONObject getJsonObject(String url) throws IOException {
+    private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)
-                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-                .header("Accept-Encoding", "gzip, deflate, br")
-                .header("Accept-Language","zh-CN,zh;q=0.9")
-                .header("Content-Type", "application/json;charset=UTF-8")
-                .header("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36")
-                .header("Cookie","Hm_lvt_0a962de82782bad64c32994d6c9b06d3=1681049933; gr_user_id=a762e1b4-6095-4638-9b52-b40b0a4a1194")
+                .header("Accept", Header.ACCEPT.value())
+                .header("Accept-Encoding", Header.ACCEPT_ENCODING.value())
+                .header("Accept-Language",Header.ACCEPT_LANGUAGE.value())
+                .header("Content-Type", Header.CONTENT_TYPE.value())
+                .header("User-Agent",Header.USER_AGENT.value())
+                .header("Cookie",Header.COOKIE.value())
                 .timeout(10000).ignoreContentType(true).execute();
 
         String body = res.body();

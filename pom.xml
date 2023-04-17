@@ -78,8 +78,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.9</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>

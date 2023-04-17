@@ -10,7 +10,7 @@ public enum Url {
     Url(String url) {
         this.url = url;
     }
-    public String getUrl(String school_id){
+    public String value(String school_id){
         return url.replace("args",school_id);
     }
 }
