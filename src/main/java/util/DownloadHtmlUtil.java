@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
@@ -38,30 +39,27 @@ public class DownloadHtmlUtil {
             String address = school_info.getString("address");
             String school_site = school_info.getString("school_site");
             String content = school_info.getString("content");
-            getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
-            getSchoolScore(Url.SCHOOL_SCORE_URL.value(school_id));
-
-
-
+            List<String> score_info = getScore(school_info);
+            List<String> major_info = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
+            String result = (school_id+","+belong+","+city_name+","+name+","+level_name+","+nature_name+
+                    ","+province_name+","+type_name+","+dual_class_name+","+address+","+school_site+
+                    ","+content+","+score_info+","+major_info);
+            rl.add(result);
         }
-
-
-
 
         return rl;
     }
 
-    private void getSchoolScore(String url) throws IOException {
-        JSONObject school_score = getJsonObject(url);
-        JSONArray items = school_score.getJSONObject("data").getJSONArray("item");
-        for (int i = 0; i < items.size(); i++) {
-            String item = items.getString(i);
-            JSONObject school_score_item = JSONObject.parseObject(item);
-            // todo
+    private List<String> getScore(JSONObject school_info) {
+        JSONObject school_score_info = school_info.getJSONObject("province_score_min");
+        List<String> scoreResult = new ArrayList<String>();
+        for (Map.Entry<String, Object> score_info : school_score_info.entrySet()){
+            scoreResult.add(score_info.getKey()+":"+score_info.getValue());
         }
+        return Collections.singletonList(scoreResult.toString());
     }
 
-    private void getSchoolMajor(String school_major_url) throws IOException {
+    private List<String> getSchoolMajor(String school_major_url) throws IOException {
         List<String> major = new ArrayList<String>();
         JSONObject school_major_data = getJsonObject(school_major_url);
         JSONArray school_major_items = school_major_data.getJSONObject("data")
@@ -74,14 +72,10 @@ public class DownloadHtmlUtil {
             String limit_year = school_major_item.getString("limit_year");
             String type_name = school_major_item.getString("type_name");
             String level2_name = school_major_item.getString("level2_name");
-            // todo return type
-
-
+            major.add(special_name+" "+limit_year+" "+type_name+" "+level2_name);
         }
-
-
+        return Collections.singletonList(major.toString());
     }
-
     private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)
                 .header("Accept", Header.ACCEPT.value())
@@ -97,5 +91,4 @@ public class DownloadHtmlUtil {
         System.out.println(jsonObject.getString("message") + ":" +url);
         return jsonObject;
     }
-
 }
