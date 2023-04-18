@@ -37,7 +37,7 @@ public class DownloadHtmlUtil {
             String address = school_info.getString("address");
             String school_site = school_info.getString("school_site");
             String content = school_info.getString("content");
-            List<String> score_info = getScore(school_info);
+            List<String> score_info = getSchoolScore(school_info);
             Map<String,Object> temp = new HashMap<>();
             List<String> major_info = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
             String result = (school_id+","+belong+","+city_name+","+name+","+level_name+","+nature_name+
@@ -50,7 +50,7 @@ public class DownloadHtmlUtil {
         return rl;
     }
 
-    private List<String> getScore(JSONObject school_info) {
+    private List<String> getSchoolScore(JSONObject school_info) {
         JSONObject school_score_info = school_info.getJSONObject("province_score_min");
         List<String> scoreResult = new ArrayList<String>();
         for (Map.Entry<String, Object> score_info : school_score_info.entrySet()){
@@ -60,21 +60,26 @@ public class DownloadHtmlUtil {
     }
 
     private List<String> getSchoolMajor(String school_major_url) throws IOException {
-        List<String> major = new ArrayList<String>();
-        JSONObject school_major_data = getJsonObject(school_major_url);
-        JSONArray school_major_items = school_major_data.getJSONObject("data")
-                .getJSONObject("special_detail").
-                getJSONArray("2");
-        for (int j = 0 ; j < school_major_items.size(); j++){
-            String temp_major = school_major_items.getString(j);
-            JSONObject school_major_item = JSONObject.parseObject(temp_major);
-            String special_name = school_major_item.getString("special_name");
-            String limit_year = school_major_item.getString("limit_year");
-            String type_name = school_major_item.getString("type_name");
-            String level2_name = school_major_item.getString("level2_name");
-            major.add(special_name+" "+limit_year+" "+type_name+" "+level2_name);
+        JSONObject school_major_data = getJsonObject(school_major_url).getJSONObject("data").getJSONObject("special_detail");
+        List<String> majorResult = new ArrayList<String>();
+        for (Map.Entry<String, Object> major_info : school_major_data.entrySet()) {
+            if (Objects.equals(major_info.getValue().toString(), "")) {
+                continue;
+            }
+            //fixme [json,json,json]
+            JSONObject major_items = JSONObject.parseObject(major_info.getValue().toString());
+            for (Map.Entry<String, Object> major_item : major_items.entrySet()) {
+                if (major_item.getValue().toString().contains("spacial_name")) {
+                    JSONObject school_major_item = JSONObject.parseObject(major_item.getValue().toString());
+                    String special_name = school_major_item.getString("special_name");
+                    String limit_year = school_major_item.getString("limit_year");
+                    String type_name = school_major_item.getString("type_name");
+                    String level2_name = school_major_item.getString("level2_name");
+                    majorResult.add(special_name + " " + limit_year + " " + type_name + " " + level2_name);
+                }
+            }
         }
-        return Collections.singletonList(major.toString());
+        return Collections.singletonList(majorResult.toString());
     }
     private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)
