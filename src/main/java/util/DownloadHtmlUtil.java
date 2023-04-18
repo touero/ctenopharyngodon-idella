@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 
 
 public class DownloadHtmlUtil {
-    public List<Map<String,Object>> DownloadHtml(String url) throws ParserConfigurationException, XPathExpressionException, IOException, InterruptedException {
+    public List<Map<String,Object>> DownloadHtml(String url) throws ParserConfigurationException, XPathExpressionException, IOException{
         List<Map<String,Object>> rl = new ArrayList<Map<String,Object>>();
         JSONObject jsonObject = getJsonObject(url);
         JSONArray items = jsonObject.getJSONObject("data").getJSONArray("item");
@@ -66,16 +66,16 @@ public class DownloadHtmlUtil {
             if (Objects.equals(major_info.getValue().toString(), "")) {
                 continue;
             }
-            //fixme [json,json,json]
-            JSONObject major_items = JSONObject.parseObject(major_info.getValue().toString());
-            for (Map.Entry<String, Object> major_item : major_items.entrySet()) {
-                if (major_item.getValue().toString().contains("spacial_name")) {
-                    JSONObject school_major_item = JSONObject.parseObject(major_item.getValue().toString());
+            JSONArray major_items = JSONArray.parseArray(major_info.getValue().toString());
+            for (int j=0; j<major_items.size(); j++) {
+                String temp = major_items.getString(j);
+                if (temp.contains("special_name")) {
+                    JSONObject school_major_item = JSONObject.parseObject(temp);
                     String special_name = school_major_item.getString("special_name");
                     String limit_year = school_major_item.getString("limit_year");
                     String type_name = school_major_item.getString("type_name");
                     String level2_name = school_major_item.getString("level2_name");
-                    majorResult.add(special_name + " " + limit_year + " " + type_name + " " + level2_name);
+                    majorResult.add(special_name + "," + limit_year + "," + type_name + "," + level2_name);
                 }
             }
         }
