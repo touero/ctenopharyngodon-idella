@@ -6,10 +6,8 @@ import org.jsoup.Jsoup;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.alibaba.fastjson.JSONObject;
 
 
@@ -40,11 +38,13 @@ public class DownloadHtmlUtil {
             String school_site = school_info.getString("school_site");
             String content = school_info.getString("content");
             List<String> score_info = getScore(school_info);
+            Map<String,Object> temp = new HashMap<>();
             List<String> major_info = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
             String result = (school_id+","+belong+","+city_name+","+name+","+level_name+","+nature_name+
                     ","+province_name+","+type_name+","+dual_class_name+","+address+","+school_site+
                     ","+content+","+score_info+","+major_info);
-            rl.add(result);
+            temp.put("result", result);
+            rl.add(temp);
         }
 
         return rl;
