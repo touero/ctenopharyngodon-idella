@@ -55,7 +55,6 @@ public class MyJob {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         boolean flag = job.waitForCompletion(true);
         System.exit(flag ? 0 : 1);
     }

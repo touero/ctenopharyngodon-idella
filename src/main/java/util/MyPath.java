@@ -5,7 +5,7 @@ import org.apache.hadoop.fs.Path;
 
 public enum MyPath {
     WINDOWS_INPUT_PATH("InputFile/schoolUrl.txt"),
-    WINDOWS_OUTPUT_PATH("D:\\hadoopTest\\ScrapySchoolAll\\OutputFile"),
+    WINDOWS_OUTPUT_PATH("OutputFile"),
     LINUX_INPUT_PATH(""),
     LINUX_OUTPUT_PATH(""),
     MAC_INPUT_PATH(""),
