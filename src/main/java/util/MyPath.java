@@ -10,8 +10,8 @@ public enum MyPath {
     LINUX_OUTPUT_PATH(""),
     MAC_INPUT_PATH(""),
     MAC_OUTPUT_PATH(""),
-    HADOOP_INPUT_PATH("/Input/url.txt"),
-    HADOOP_OUTPUT_PATH("/scrapyOutput");
+    HADOOP_INPUT_PATH("/Input/schoolUrl.txt"),
+    HADOOP_OUTPUT_PATH("/Output/schoolAll");
 
     private final String string_value;
 

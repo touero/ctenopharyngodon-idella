@@ -3,6 +3,7 @@ package job;
 import mapper.MyMapper;
 import org.apache.commons.configuration.AbstractFileConfiguration;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -17,14 +18,13 @@ import util.MySystem;
 
 import java.io.File;
 import java.io.IOException;
-
 import static org.apache.hadoop.hdfs.server.common.Storage.deleteDir;
 
 public class MyJob {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
-
-        Job job = Job.getInstance(new Configuration());
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf);
 
         job.setJarByClass(MyJob.class);
         job.setMapperClass(MyMapper.class);
@@ -47,6 +47,7 @@ public class MyJob {
             }
             if (my_system.startsWith(MySystem.LINUX.value())){
                 FileInputFormat.setInputPaths(job, MyPath.HADOOP_INPUT_PATH.path_value());
+                pathIsexitsHadoop(conf);
                 FileOutputFormat.setOutputPath(job, MyPath.HADOOP_OUTPUT_PATH.path_value());
             }
             if (my_system.startsWith(MySystem.MAC.value())){
@@ -57,6 +58,13 @@ public class MyJob {
         }
         boolean flag = job.waitForCompletion(true);
         System.exit(flag ? 0 : 1);
+    }
+
+    private static void pathIsexitsHadoop(Configuration conf) throws IOException {
+        FileSystem fileSystem = MyPath.HADOOP_OUTPUT_PATH.path_value().getFileSystem(conf);
+        if (fileSystem.exists(MyPath.HADOOP_OUTPUT_PATH.path_value())) {
+            fileSystem.delete(MyPath.HADOOP_OUTPUT_PATH.path_value(),true);
+        }
     }
 
     private static void pathIsExitsWindows(String path) throws IOException {
