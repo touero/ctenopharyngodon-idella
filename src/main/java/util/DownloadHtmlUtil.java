@@ -43,7 +43,7 @@ public class DownloadHtmlUtil {
             String result = (school_id+","+belong+","+city_name+","+name+","+level_name+","+nature_name+
                     ","+province_name+","+type_name+","+dual_class_name+","+address+","+school_site+
                     ","+content+","+score_info+","+major_info);
-            temp.put("result", result);
+            temp.put("school_id", result);
             rl.add(temp);
         }
 
