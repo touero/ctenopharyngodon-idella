@@ -6,4 +6,7 @@
 ### ~~3.mapreduce下进行selenium~~
 #### 但利用selenium会出现利用port过多和port占用问题
 ### 4.通过获取到的school_id重构url访问借口访问
+## to do
+### 增加了通过系统判断输入输出路径
+#### 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交is、req,
 ps: 学习用途
