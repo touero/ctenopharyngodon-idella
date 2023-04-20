@@ -8,7 +8,7 @@
 ### 4.通过获取到的school_id重构url访问借口访问
 ## to do
 ### 增加了通过系统判断输入输出路径
-#### 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交is、req,
+#### 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交Issues、Pr,
 ## 增加Windows下测试hadoop
 ### initTest.bat:将hadoop.dll复制到C:\Windows\System32下。ps：请以管理员运行
 ps: 学习用途
