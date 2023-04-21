@@ -22,7 +22,7 @@ public class MyMapper extends Mapper<Object, Text, Text,NullWritable> {
         try {
             crawler = downloadHtmlUtil.DownloadHtml(url);
             System.out.println(crawler);
-        } catch (ParserConfigurationException | XPathExpressionException e) {
+        }catch (XPathExpressionException | ParserConfigurationException e) {
             e.printStackTrace();
         }
         Text record = new Text();

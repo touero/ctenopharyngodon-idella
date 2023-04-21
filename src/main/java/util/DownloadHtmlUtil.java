@@ -19,49 +19,58 @@ public class DownloadHtmlUtil {
         JSONObject jsonObject = getJsonObject(url);
         JSONArray items = jsonObject.getJSONObject("data").getJSONArray("item");
         for (int i = 0; i < items.size(); i++) {
+            JSONObject resultJson = new JSONObject();
             String item = items.getString(i);
             JSONObject json_item = JSONObject.parseObject(item);
             String school_id = json_item.getString("school_id");
-            String belong = json_item.getString("belong");
-            String city_name = json_item.getString("city_name");
-            String name = json_item.getString("name");
-            String level_name = json_item.getString("level_name");
-            String nature_name = json_item.getString("nature_name");
-            String province_name = json_item.getString("province_name");
-            String type_name = json_item.getString("type_name");
-            String dual_class_name = json_item.getString("dual_class_name");
-            if (dual_class_name.length()==0){
-                dual_class_name = null;
-            }
+            resultJson.put("school_id",school_id);
+            resultJson.put("belong",json_item.getString("belong"));
+            resultJson.put("city_name",json_item.getString("city_name"));
+            resultJson.put("name",json_item.getString("name"));
+            resultJson.put("level_name",json_item.getString("level_name"));
+            resultJson.put("nature_name",json_item.getString("nature_name"));
+            resultJson.put("province_name",json_item.getString("province_name"));
+            resultJson.put("type_name",json_item.getString("type_name"));
+            resultJson.put("dual_class_name",json_item.getString("dual_class_name"));
             JSONObject school_info = getJsonObject(Url.SCHOOL_INFO_URL.value(school_id)).getJSONObject("data");
-            String address = school_info.getString("address");
-            String school_site = school_info.getString("school_site");
-            String content = school_info.getString("content");
-            List<String> score_info = getSchoolScore(school_info);
-            Map<String,Object> temp = new HashMap<>();
-            List<String> major_info = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
-            String result = (school_id+","+belong+","+city_name+","+name+","+level_name+","+nature_name+
-                    ","+province_name+","+type_name+","+dual_class_name+","+address+","+school_site+
-                    ","+content+","+score_info+","+major_info);
-            temp.put("school_id", result);
-            rl.add(temp);
+            resultJson.put("address",school_info.getString("address"));
+            resultJson.put("school_site",school_info.getString("school_site"));
+            resultJson.put("content",school_info.getString("content"));
+            JSONObject scoreResult = getSchoolScore(school_info);
+            resultJson.put("school_score",scoreResult);
+            rl.add(resultJson);
         }
-
         return rl;
     }
 
-    private List<String> getSchoolScore(JSONObject school_info) {
-        JSONObject school_score_info = school_info.getJSONObject("province_score_min");
-        List<String> scoreResult = new ArrayList<String>();
-        for (Map.Entry<String, Object> score_info : school_score_info.entrySet()){
-            scoreResult.add(score_info.getKey()+":"+score_info.getValue());
-        }
-        return Collections.singletonList(scoreResult.toString());
+    @NotNull
+    private List<String> nameMap() {
+        List<String> jsonName = new ArrayList<>();
+        jsonName.add("school_id");
+        jsonName.add("belong");
+        jsonName.add("city_name");
+        jsonName.add("name");
+        jsonName.add("level_name");
+        jsonName.add("nature_name");
+        jsonName.add("province_name");
+        jsonName.add("type_name");
+        jsonName.add("dual_class_name");
+        jsonName.add("address");
+        jsonName.add("school_site");
+        jsonName.add("content");
+        return jsonName;
     }
 
-    private List<String> getSchoolMajor(String school_major_url) throws IOException {
+    private JSONObject getSchoolScore(JSONObject school_info) {
+        JSONObject school_score_info = school_info.getJSONObject("province_score_min");
+        JSONObject scoreResult = new JSONObject();
+        scoreResult.putAll(school_score_info);
+        return scoreResult;
+    }
+
+    private JSONObject getSchoolMajor(String school_major_url) throws IOException {
         JSONObject school_major_data = getJsonObject(school_major_url).getJSONObject("data").getJSONObject("special_detail");
-        List<String> majorResult = new ArrayList<String>();
+        JSONObject majorResult = new JSONObject();
         for (Map.Entry<String, Object> major_info : school_major_data.entrySet()) {
             if (Objects.equals(major_info.getValue().toString(), "")) {
                 continue;
@@ -71,15 +80,14 @@ public class DownloadHtmlUtil {
                 String temp = major_items.getString(j);
                 if (temp.contains("special_name")) {
                     JSONObject school_major_item = JSONObject.parseObject(temp);
-                    String special_name = school_major_item.getString("special_name");
-                    String limit_year = school_major_item.getString("limit_year");
-                    String type_name = school_major_item.getString("type_name");
-                    String level2_name = school_major_item.getString("level2_name");
-                    majorResult.add(special_name + "," + limit_year + "," + type_name + "," + level2_name);
+                    majorResult.put("special_name",school_major_item.getString("special_name"));
+                    majorResult.put("limit_year",school_major_item.getString("limit_year"));
+                    majorResult.put("type_name",school_major_item.getString("type_name"));
+                    majorResult.put("level2_name",school_major_item.getString("level2_name"));
                 }
             }
         }
-        return Collections.singletonList(majorResult.toString());
+        return majorResult;
     }
     private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)

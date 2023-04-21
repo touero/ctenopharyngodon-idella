@@ -39,6 +39,7 @@ public class MyJob {
         job.setJobName("CrawlerSchoolAll");
 
         String my_system = System.getProperty("os.name");
+        System.out.println(my_system);
         try {
             if (my_system.startsWith(MySystem.WINDOWS.value())) {
                 FileInputFormat.setInputPaths(job, MyPath.WINDOWS_INPUT_PATH.string_value());
