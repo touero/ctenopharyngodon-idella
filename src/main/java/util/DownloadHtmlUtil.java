@@ -38,7 +38,7 @@ public class DownloadHtmlUtil {
             resultJson.put("content",school_info.getString("content"));
             JSONObject scoreResult = getSchoolScore(school_info);
             resultJson.put("school_score",scoreResult);
-            JSONObject majorResult = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
+            List<String> majorResult = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
             resultJson.put("school_major", majorResult);
             rl.add(resultJson);
         }
@@ -53,26 +53,33 @@ public class DownloadHtmlUtil {
         return scoreResult;
     }
 
-    private JSONObject getSchoolMajor(String school_major_url) throws IOException {
+    private List<String> getSchoolMajor(String school_major_url) throws IOException {
         JSONObject school_major_data = getJsonObject(school_major_url).getJSONObject("data").getJSONObject("special_detail");
-        JSONObject majorResult = new JSONObject();
+        JSONObject majorResult = null;
+        List<String> majorList = new ArrayList<String>();
         for (Map.Entry<String, Object> major_info : school_major_data.entrySet()) {
+            if (Objects.equals(major_info.getValue().toString(), "[]")) {
+                continue;
+            }
             if (Objects.equals(major_info.getValue().toString(), "")) {
                 continue;
             }
             JSONArray major_items = JSONArray.parseArray(major_info.getValue().toString());
-            for (int j=0; j<major_items.size(); j++) {
+            for (int j = 0; j < major_items.size(); j++) {
                 String temp = major_items.getString(j);
+
                 if (temp.contains("special_name")) {
+                    majorResult = new JSONObject();
                     JSONObject school_major_item = JSONObject.parseObject(temp);
-                    majorResult.put("special_name",school_major_item.getString("special_name"));
-                    majorResult.put("limit_year",school_major_item.getString("limit_year"));
-                    majorResult.put("type_name",school_major_item.getString("type_name"));
-                    majorResult.put("level2_name",school_major_item.getString("level2_name"));
+                    majorResult.put("special_name", school_major_item.getString("special_name"));
+                    majorResult.put("limit_year", school_major_item.getString("limit_year"));
+                    majorResult.put("type_name", school_major_item.getString("type_name"));
+                    majorResult.put("level2_name", school_major_item.getString("level2_name"));
+                    majorList.add(String.valueOf(majorResult));
                 }
             }
         }
-        return majorResult;
+        return majorList;
     }
     private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)
