@@ -38,28 +38,13 @@ public class DownloadHtmlUtil {
             resultJson.put("content",school_info.getString("content"));
             JSONObject scoreResult = getSchoolScore(school_info);
             resultJson.put("school_score",scoreResult);
+            JSONObject majorResult = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
+            resultJson.put("school_major", majorResult);
             rl.add(resultJson);
         }
         return rl;
     }
 
-    @NotNull
-    private List<String> nameMap() {
-        List<String> jsonName = new ArrayList<>();
-        jsonName.add("school_id");
-        jsonName.add("belong");
-        jsonName.add("city_name");
-        jsonName.add("name");
-        jsonName.add("level_name");
-        jsonName.add("nature_name");
-        jsonName.add("province_name");
-        jsonName.add("type_name");
-        jsonName.add("dual_class_name");
-        jsonName.add("address");
-        jsonName.add("school_site");
-        jsonName.add("content");
-        return jsonName;
-    }
 
     private JSONObject getSchoolScore(JSONObject school_info) {
         JSONObject school_score_info = school_info.getJSONObject("province_score_min");
