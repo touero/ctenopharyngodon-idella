@@ -35,7 +35,7 @@ public class DownloadHtmlUtil {
             JSONObject school_info = getJsonObject(Url.SCHOOL_INFO_URL.value(school_id)).getJSONObject("data");
             resultJson.put("address",school_info.getString("address"));
             resultJson.put("school_site",school_info.getString("school_site"));
-            resultJson.put("content",school_info.getString("content"));
+            resultJson.put("content",school_info.getString("content").replaceAll("\"","'"));
             JSONObject scoreResult = getSchoolScore(school_info);
             resultJson.put("school_score",scoreResult);
             List<String> majorResult = getSchoolMajor(Url.SCHOOL_MAJOR_URL.value(school_id));
