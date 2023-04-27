@@ -9,6 +9,7 @@ import util.DownloadHtmlUtil;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class MyMapper extends Mapper<Object, Text, Text,NullWritable> {
         try {
             crawler = downloadHtmlUtil.DownloadHtml(url);
             System.out.println(crawler);
-        }catch (XPathExpressionException | ParserConfigurationException e) {
+        }catch (XPathExpressionException | ParserConfigurationException | SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         Text record = new Text();
