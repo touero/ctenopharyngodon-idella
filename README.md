@@ -1,6 +1,6 @@
 # Hadoop, MapReduce分布式爬取全中国大学的数据信息
 
-<img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> 
+<img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> <img src="https://img.shields.io/badge/Hadoop_-red" alt=""> <img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
 
 仓库介绍
 
