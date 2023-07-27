@@ -5,7 +5,7 @@
 </p>
 仓库介绍
 
-  广泛的MapReduce分布式爬虫还是推荐使用Jsoup, 但是它无法解析由JavaScrip加载而来的数据. 因此这是一个利用FastJson爬取全中国大学的数据信息的仓库, 它利用的是Hadoop生态中MapReduce分布式计算爬虫. 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交Issues、Pr.
+&emsp;&emsp;广泛的MapReduce分布式爬虫还是推荐使用Jsoup, 但是它无法解析由JavaScrip加载而来的数据. 因此这是一个利用FastJson爬取全中国大学的数据信息的仓库, 它利用的是Hadoop生态中MapReduce分布式计算爬虫. 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交Issues、Pr.
 
 ![img.png](img.png)
 
