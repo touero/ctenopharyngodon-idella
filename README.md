@@ -6,7 +6,7 @@
 
 ## Repository Introduction
 
-&emsp;&emsp;The widely used Map Reduce distributed crawler still recommends using Jsoup, but it cannot parse data loaded by Java Scrip Therefore, this is a warehouse that utilizes Fast Json to crawl data information from all Chinese universities, utilizing the Map Reduce distributed computing crawler in the Hadoop ecosystem At present, my programming environment is Windows 10, and virtual Hadoop cannot be tested on Linux or Mac in the testing environment of Windows 10. It is currently determined that Linux is an HDFS path. If you are interested, please submit Issues or Pr.
+&emsp;&emsp;The widely used MapReduce distributed crawler still recommends using Jsoup, but it cannot parse data loaded by JavaScrip Therefore, this is a warehouse that utilizes Fast Json to crawl data information from all Chinese universities, utilizing the Map Reduce distributed computing crawler in the Hadoop ecosystem At present, my programming environment is Windows10, and virtual Hadoop cannot be tested on Linux or Mac in the testing environment of Windows10. It is currently determined that Linux is an HDFS path. If you are interested, please submit Issues or Pr.
 
 ![img.png](img.png)
 
