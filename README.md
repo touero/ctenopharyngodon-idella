@@ -1,25 +1,24 @@
-<h1 align="center">Hadoop, MapReduce分布式爬取全中国大学的数据信息</h1>
+<h1 align="center">Hadoop, Map Reduce Distributed Crawling of Data Information from All Chinese Universities</h1>
 
 <p align="center">
 <img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> <img src="https://img.shields.io/badge/Hadoop_-red" alt=""> <img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
 </p>
 
-## 仓库介绍
+## Repository Introduction
 
-&emsp;&emsp;广泛的MapReduce分布式爬虫还是推荐使用Jsoup, 但是它无法解析由JavaScrip加载而来的数据. 因此这是一个利用FastJson爬取全中国大学的数据信息的仓库, 它利用的是Hadoop生态中MapReduce分布式计算爬虫. 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交Issues、Pr.
+&emsp;&emsp;The widely used Map Reduce distributed crawler still recommends using Jsoup, but it cannot parse data loaded by Java Scrip Therefore, this is a warehouse that utilizes Fast Json to crawl data information from all Chinese universities, utilizing the Map Reduce distributed computing crawler in the Hadoop ecosystem At present, my programming environment is Windows 10, and virtual Hadoop cannot be tested on Linux or Mac in the testing environment of Windows 10. It is currently determined that Linux is an HDFS path. If you are interested, please submit Issues or Pr.
 
 ![img.png](img.png)
 
-本仓库包含以下内容：
+This repository contains：
 
-1. Windows下模拟的分布式环境搭建
-2. 爬取掌上高考
-3. 数据存储
+1. Building a simulated distributed environment under Windows
+2. Crawling 掌上高考
+3. Data Storage
 
+## Install
 
-## 安装
-
-这个项目使用 [Java](https://www.java.com/) [Git](https://git-scm.com/) 请确保你本地安装了它们。
+This project uses [Java](https://www.java.com/) [Git](https://git-scm.com/), Go check them out if you don't have them locally installed.
 
 ```shell
 $ git clone https://github.com/weiensong/ScrapySchoolAll.git
@@ -27,16 +26,16 @@ $ git clone https://github.com/weiensong/ScrapySchoolAll.git
 
 
 
-## 运行
-- 真正的分布式环境
+## Usage
+- A truly distributed environment
 ```shell
 $ mvn package
 
 # 在Master上
 $ hadoop jar PackageName.jar
 ```
-- Windows模拟的分布式环境
-	- 直接以管理员运行initTest.bat
+- Distributed environment simulated by Windows
+	- run initTest.bat directly as administrator 
 	- ```shell
 		$ cd /d "%~dp0"
 		$ copy hadoop.dll C:\Windows\System32
@@ -47,43 +46,41 @@ $ hadoop jar PackageName.jar
 		
 		
 
-## 相关仓库
+## Related Efforts
 
 - [hadoop](https://github.com/apache/hadoop) —Apache Hadoop
-- [allSchoolAPI](https://github.com/weiensong/allSchoolAPI) — 中国全国大学基本信息API搭建
+- [allSchoolAPI](https://github.com/weiensong/allSchoolAPI) — Basic information API construction of Chinese national universities.(中国全国大学基本信息API搭建)
 
 
 
-## 相关链接
+## Related Efforts
 
 - [Hadoop](https://hadoop.apache.org/)
-- [Maven中央仓库](https://mvnrepository.com/)
+- [Maven Central Warehouse](https://mvnrepository.com/)
 - [掌上高考](https://www.gaokao.cn/) 
 
 
 
 
 
-## 维护者
+## Maintainers
 
 [@weiensong](https://github.com/weiensong)
 
 
 
-## 如何贡献
+## Contributing
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/weiensong/ScrapySchoolAll/issues) 或者提交一个 Pull Request。
+Feel free to dive in! [Open an issue](https://github.com/weiensong/ScrapySchoolAll/issues) or submit PRs.
 
+Standard Java follows the [Google apache](https://google.github.io/styleguide/javaguide.html) Code of Conduct.
 
-标准 Java 遵循 [Google apache](https://google.github.io/styleguide/javaguide.html) 行为规范。
-
-### 贡献者
-
-感谢参与项目的所有人
+### Contributors
+This project exists thanks to all the people who contribute.
 
 
 
-## 使用许可
+## License
 
 [MIT](LICENSE) © weiensong
 
