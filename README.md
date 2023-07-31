@@ -1,4 +1,4 @@
-<h1 align="center">Hadoop, Map Reduce Distributed Crawling of Data Information from All Chinese Universities</h1>
+<h1 align="center">Hadoop, MapReduce Distributed Crawling of Data Information from All Chinese Universities</h1>
 
 <p align="center">
 <img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> <img src="https://img.shields.io/badge/Hadoop_-red" alt=""> <img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
