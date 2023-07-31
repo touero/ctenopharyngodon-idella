@@ -31,7 +31,7 @@ $ git clone https://github.com/weiensong/ScrapySchoolAll.git
 ```shell
 $ mvn package
 
-# 在Master上
+# in Master
 $ hadoop jar PackageName.jar
 ```
 - Distributed environment simulated by Windows
