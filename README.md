@@ -46,7 +46,7 @@ $ hadoop jar PackageName.jar
 		
 		
 
-## Related Efforts
+## Related Repository
 
 - [hadoop](https://github.com/apache/hadoop) —Apache Hadoop
 - [allSchoolAPI](https://github.com/weiensong/allSchoolAPI) — Basic information API construction of Chinese national universities.(中国全国大学基本信息API搭建)
