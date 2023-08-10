@@ -82,5 +82,5 @@ This project exists thanks to all the people who contribute.
 
 ## License
 
-[MIT](LICENSE) © weiensong
+[MIT](https://github.com/weiensong/weiensong/blob/main/.universal/LICENSE.txt) © weiensong
 
