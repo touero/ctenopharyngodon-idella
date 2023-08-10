@@ -1,15 +1,86 @@
-# Hadoop,mapreduce分布式爬取掌上高考的所有中国大学数据
+<h1 align="center">Hadoop, MapReduce Distributed Crawling of Data Information from All Chinese Universities</h1>
+
+<p align="center">
+<img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> <img src="https://img.shields.io/badge/Hadoop_-red" alt=""> <img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
+</p>
+
+## Repository Introduction
+
+The widely used MapReduce distributed crawler still recommends using Jsoup, but it cannot parse data loaded by JavaScrip Therefore, this is a warehouse that utilizes Fast Json to crawl data information from all Chinese universities, utilizing the Map Reduce distributed computing crawler in the Hadoop ecosystem At present, my programming environment is Windows10, and virtual Hadoop cannot be tested on Linux or Mac in the testing environment of Windows10. It is currently determined that Linux is an HDFS path. If you are interested, please submit Issues or Pr.
+
 ![img.png](img.png)
-## 欢迎issues，pr
-## Windows idea下直接测试hadoop mapreduce方法
-### initTest.bat：将hadoop.dll复制到C:\Windows\System32下。【！！！请以管理员运行！！！】
-## 思路转变过程
-### 1.通过api和js逆向获取首页学校数据，数据较少
-### ~~2.通过1信息下的school_id重新构成学校详细的url~~
-#### 但利用jsoup访问url后发现数据还是从js加载而来
-### ~~3.mapreduce下进行selenium~~
-#### 但利用selenium会出现利用port过多和port占用问题
-### 4.通过获取到的school_id重构url访问借口访问
-### 增加了通过系统判断输入输出路径
-#### 目前我的编程环境Windows 10，测试环境Windows 10下虚拟的hadoop暂时还没办法在linux、mac上进行测试，且目前判断linux则为hdfs路径，有兴趣请提交Issues、Pr,
-ps 学习用途，请遵循相关法律法规。
+
+This repository contains：
+
+1. Building a simulated distributed environment under Windows
+2. Crawling 掌上高考
+3. Data Storage
+
+## Install
+
+This project uses [Java](https://www.java.com/) [Git](https://git-scm.com/), Go check them out if you don't have them locally installed.
+
+```shell
+$ git clone https://github.com/weiensong/ScrapySchoolAll.git
+```
+
+
+
+## Usage
+- A truly distributed environment
+```shell
+$ mvn package
+
+# in Master
+$ hadoop jar PackageName.jar
+```
+- Distributed environment simulated by Windows
+	- run initTest.bat directly as administrator 
+	- ```shell
+		$ cd /d "%~dp0"
+		$ copy hadoop.dll C:\Windows\System32
+		$ cd /src/main/java/job
+		$ javac MyJob.java
+		$ java MyJob
+		```
+		
+		
+
+## Related Repository
+
+- [hadoop](https://github.com/apache/hadoop) —Apache Hadoop
+- [allSchoolAPI](https://github.com/weiensong/allSchoolAPI) — Basic information API construction of Chinese national universities.(中国全国大学基本信息API搭建)
+
+
+
+## Related Efforts
+
+- [Hadoop](https://hadoop.apache.org/)
+- [Maven Central Warehouse](https://mvnrepository.com/)
+- [掌上高考](https://www.gaokao.cn/) 
+
+
+
+
+
+## Maintainers
+
+[@weiensong](https://github.com/weiensong)
+
+
+
+## Contributing
+
+Feel free to dive in! [Open an issue](https://github.com/weiensong/ScrapySchoolAll/issues) or submit PRs.
+
+Standard Java follows the [Google apache](https://google.github.io/styleguide/javaguide.html) Code of Conduct.
+
+### Contributors
+This project exists thanks to all the people who contribute.
+
+
+
+## License
+
+[MIT](LICENSE) © weiensong
+
