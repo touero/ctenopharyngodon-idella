@@ -1,7 +1,11 @@
 <h1 align="center">Hadoop, MapReduce Distributed Crawling of Data Information from All Chinese Universities</h1>
 
 <p align="center">
-<img src="https://img.shields.io/badge/license_-MIT-green" alt="">  <img src="https://img.shields.io/badge/license_-Apache-blue" alt=""> <img src="https://img.shields.io/badge/Java_-red" alt=""> <img src="https://img.shields.io/badge/Maven_-red" alt=""> <img src="https://img.shields.io/badge/Hadoop_-red" alt=""> <img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
+<a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a>
+<img src="https://img.shields.io/badge/Java_-red" alt=""> 
+<img src="https://img.shields.io/badge/Maven_-red" alt=""> 
+<img src="https://img.shields.io/badge/Hadoop_-red" alt=""> 
+<img src="https://img.shields.io/badge/mapreduce_-red" alt=""> 
 </p>
 
 ## Repository Introduction
