@@ -40,12 +40,12 @@ $ hadoop jar PackageName.jar
 ```
 - Distributed environment simulated by Windows
 	- run initTest.bat directly as administrator 
-	- ```shell
-		$ cd /d "%~dp0"
-		$ copy hadoop.dll C:\Windows\System32
-		$ cd /src/main/java/job
-		$ javac MyJob.java
-		$ java MyJob
+	- ```command
+		> cd /d "%~dp0"
+		> copy hadoop.dll C:\Windows\System32
+		> cd /src/main/java/job
+		> javac MyJob.java
+		> java MyJob
 		```
 		
 		
