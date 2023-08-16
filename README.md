@@ -1,4 +1,4 @@
-<h1 align="center">Hadoop, MapReduce Distributed Crawling of Data Information from All Chinese Universities</h1>
+<h1 align="center">ctenopharyngodon-idella</h1>
 
 <p align="center">
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
@@ -9,6 +9,7 @@
 </p>
 
 ## Repository Introduction
+Hadoop, MapReduce Distributed Crawling of Data Information from All Chinese Universities  
 
 The widely used MapReduce distributed crawler still recommends using Jsoup, but it cannot parse data loaded by JavaScrip Therefore, this is a warehouse that utilizes Fast Json to crawl data information from all Chinese universities, utilizing the Map Reduce distributed computing crawler in the Hadoop ecosystem At present, my programming environment is Windows10, and virtual Hadoop cannot be tested on Linux or Mac in the testing environment of Windows10. It is currently determined that Linux is an HDFS path. If you are interested, please submit Issues or Pr.
 
