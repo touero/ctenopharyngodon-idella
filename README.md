@@ -1,11 +1,15 @@
 <h1 align="center">ctenopharyngodon-idella</h1>
 
 <p align="center">
-<a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
-<a href="https://www.java.com/"><img src="https://img.shields.io/badge/Java_-red" alt=""></a> 
-<a href="https://maven.apache.org/"><img src="https://img.shields.io/badge/Maven_-red" alt=""></a> 
-<a href="https://hadoop.apache.org/"><img src="https://img.shields.io/badge/Hadoop_-red" alt=""></a> 
-<a href="https://hadoop.apache.org/docs/r1.2.1/mapred_tutorial.html"><img src="https://img.shields.io/badge/mapreduce_-red" alt=""></a> 
+	<a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
+	<a href="https://www.java.com/"><img src="https://img.shields.io/badge/Java_-red" alt=""></a> 
+	<a href="https://maven.apache.org/"><img src="https://img.shields.io/badge/Maven_-red" alt=""></a> 
+	<a href="https://hadoop.apache.org/"><img src="https://img.shields.io/badge/Hadoop_-red" alt=""></a> 
+	<a href="https://hadoop.apache.org/docs/r1.2.1/mapred_tutorial.html"><img src="https://img.shields.io/badge/mapreduce_-red" alt=""></a> 
+</p>
+
+<p align="center">
+    <img src=.about/ctenopharyngodon-idella.png height="200" width="200" alt="">
 </p>
 
 ## Repository Introduction
