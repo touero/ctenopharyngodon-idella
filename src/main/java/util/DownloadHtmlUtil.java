@@ -34,11 +34,11 @@ public class DownloadHtmlUtil {
         String infoUrl = rulTemp[0];
         String majorUrl = rulTemp[1];
         JSONObject infoJson = getJsonObject(infoUrl).getJSONObject("data");
-        String school_id = infoJson.getString("school_id");
+        String schoolId = infoJson.getString("school_id");
 
         List<String> majorResult = getSchoolMajor(majorUrl, statement);
-        List<String> scoreResult = getSchoolScore(infoJson, school_id, statement);
-        List<String> infoResult = getSchoolInfo(infoJson, school_id, statement);
+        List<String> scoreResult = getSchoolScore(infoJson, schoolId, statement);
+        List<String> infoResult = getSchoolInfo(infoJson, schoolId, statement);
 
         Result.put("info", infoResult);
         Result.put("score",scoreResult);
@@ -48,36 +48,37 @@ public class DownloadHtmlUtil {
         conn.close();
         return rl;
     }
+
     private List<String> getSchoolInfo(JSONObject infoJson, java.lang.String school_id, Statement statement) throws SQLException{
         List<String> infoResult = new ArrayList<>();
-        String name = infoJson.getString("name");
+        String schoolName = infoJson.getString("name");
         String belong = infoJson.getString("belong");
-        String province_id = infoJson.getString("province_id");
-        String province_name = infoJson.getString("province_name");
-        String city_name = infoJson.getString("city_name");
-        String level_name = infoJson.getString("level_name");
-        String type_name = infoJson.getString("type_name");
-        String school_type_name = infoJson.getString("school_type_name");
-        String school_nature_name = infoJson.getString("school_type_name");
+        String provinceId = infoJson.getString("province_id");
+        String provinceName = infoJson.getString("province_name");
+        String cityName = infoJson.getString("city_name");
+        String levelName = infoJson.getString("level_name");
+        String typeName = infoJson.getString("type_name");
+        String schoolTypeName = infoJson.getString("school_type_name");
+        String schoolNatureName = infoJson.getString("school_type_name");
 
-        String dual_class_name = infoJson.getString("dual_class_name");
-        if (Objects.equals(dual_class_name, "")){
-            dual_class_name = null;
+        String dualClassName = infoJson.getString("dual_class_name");
+        if (Objects.equals(dualClassName, "")){
+            dualClassName = null;
         }
 
-        String nature_name = infoJson.getString("nature_name");
+        String natureName = infoJson.getString("nature_name");
         String site = infoJson.getString("site");
-        String school_site = infoJson.getString("school_site");
+        String schoolSite = infoJson.getString("school_site");
         String address = infoJson.getString("address");
         String content = infoJson.getString("content");
 
         String sqlInfo = String.format("insert into info values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-                school_id,name,belong,province_id,province_name,site,city_name,level_name,type_name,
-                school_type_name,school_nature_name,dual_class_name,nature_name,school_site,
+                school_id, schoolName,belong, provinceId,provinceName,site,cityName,levelName,typeName,
+                schoolTypeName,schoolNatureName,dualClassName,natureName,schoolSite,
                 address,content);
 
-        String school_info_item = school_id+","+name + ','+belong + ','+province_id +',' +province_name+","+site + ','+city_name + ','+level_name +',' +type_name
-                +","+school_type_name + ','+school_nature_name + ','+dual_class_name +',' +nature_name+ ','+school_site + ','+address +',' +content;
+        String school_info_item = school_id+","+ schoolName + ','+belong + ','+ provinceId +',' +provinceName+","+site + ','+cityName + ','+levelName +',' +typeName
+                +","+schoolTypeName + ','+schoolNatureName + ','+dualClassName +',' +natureName+ ','+schoolSite + ','+address +',' +content;
 
         infoResult.add(school_info_item);
 
@@ -88,21 +89,21 @@ public class DownloadHtmlUtil {
 
     }
 
-    private List<String> getSchoolScore(JSONObject infoJson, String school_id, Statement statement) throws SQLException {
+    private List<String> getSchoolScore(JSONObject infoJson, String schoolId, Statement statement) throws SQLException {
         List<String> scoreResult = new ArrayList<>();
-        JSONObject province_score_min_json = infoJson.getJSONObject("province_score_min");
-        for (Map.Entry<String, Object> province_score_min : province_score_min_json.entrySet()) {
-            JSONObject province_score_json = JSONObject.parseObject(province_score_min.getValue().toString());
-            String province_id = province_score_json.getString("province_id");
-            String type = province_score_json.getString("type");
-            String min = province_score_json.getString("min");
-            String year = province_score_json.getString("year");
+        JSONObject provinceScoreMinJson = infoJson.getJSONObject("province_score_min");
+        for (Map.Entry<String, Object> province_score_min : provinceScoreMinJson.entrySet()) {
+            JSONObject provinceScoreJson = JSONObject.parseObject(province_score_min.getValue().toString());
+            String provinceId = provinceScoreJson.getString("province_id");
+            String type = provinceScoreJson.getString("type");
+            String min = provinceScoreJson.getString("min");
+            String year = provinceScoreJson.getString("year");
 
             String sqlScore = String.format("insert into score values('%s','%s','%s','%s','%s')",
-                    school_id,province_id,type,min,year);
+                    schoolId,provinceId,type,min,year);
 
-            String province_score_item = school_id+","+province_id + ','+type + ','+min +',' +year;
-            scoreResult.add(province_score_item);
+            String provinceScoreItem = schoolId+","+provinceId + ','+type + ','+min +',' +year;
+            scoreResult.add(provinceScoreItem);
 
             int state = statement.executeUpdate(sqlScore);
             System.out.println("mysql state"+": "+state);
@@ -111,35 +112,34 @@ public class DownloadHtmlUtil {
         return scoreResult;
     }
 
-
     private List<String> getSchoolMajor(String majorUrl, Statement statement) throws IOException, SQLException {
-        JSONObject school_major_json = getJsonObject(majorUrl).getJSONObject("data").getJSONObject("special_detail");
+        JSONObject schoolMajorJson = getJsonObject(majorUrl).getJSONObject("data").getJSONObject("special_detail");
         List<String> scoreResult = new ArrayList<>();
-        for (Map.Entry<String, Object> major_info : school_major_json.entrySet()) {
-            if (Objects.equals(major_info.getValue().toString(), "[]")) {
+        for (Map.Entry<String, Object> majorInfo : schoolMajorJson.entrySet()) {
+            if (Objects.equals(majorInfo.getValue().toString(), "[]")) {
                 continue;
             }
-            if (Objects.equals(major_info.getValue().toString(), "")) {
+            if (Objects.equals(majorInfo.getValue().toString(), "")) {
                 continue;
             }
-            JSONArray major_items = JSONArray.parseArray(major_info.getValue().toString());
+            JSONArray major_items = JSONArray.parseArray(majorInfo.getValue().toString());
             for (int j = 0; j < major_items.size(); j++) {
                 String temp = major_items.getString(j);
                 if (temp.contains("special_name")) {
-                    JSONObject school_major_item = JSONObject.parseObject(temp);
-                    String school_id = school_major_item.getString("school_id");
-                    String special_name = school_major_item.getString("special_name");
-                    String type_name = school_major_item.getString("type_name");
-                    String level3_name = school_major_item.getString("level3_name");
-                    String level2_name = school_major_item.getString("level2_name");
-                    String limit_year = school_major_item.getString("limit_year");
-                    String major_item = school_id+','+special_name+','+type_name+
-                            ','+ level3_name+","+level2_name+','+limit_year;
+                    JSONObject schoolMajorItem = JSONObject.parseObject(temp);
+                    String schoolId = schoolMajorItem.getString("school_id");
+                    String specialName = schoolMajorItem.getString("special_name");
+                    String typeName = schoolMajorItem.getString("type_name");
+                    String level3Name = schoolMajorItem.getString("level3_name");
+                    String level2Name = schoolMajorItem.getString("level2_name");
+                    String limitYear = schoolMajorItem.getString("limit_year");
+                    String majorItem = schoolId+','+specialName+','+typeName+
+                            ','+level3Name+","+level2Name+','+limitYear;
 
-                    scoreResult.add(major_item);
+                    scoreResult.add(majorItem);
 
                     String sqlMajor = String.format("insert into major values('%s','%s','%s','%s','%s','%s')",
-                            school_id,special_name,type_name,level3_name,level2_name,limit_year);
+                            schoolId, specialName, typeName, level3Name, level2Name, limitYear);
                     int state = statement.executeUpdate(sqlMajor);
                     System.out.println("mysql state"+": "+state);
 
@@ -148,7 +148,6 @@ public class DownloadHtmlUtil {
         }
         return scoreResult;
     }
-
 
     private @NotNull JSONObject getJsonObject(String url) throws IOException {
         Connection.Response res = Jsoup.connect(url)
