@@ -91,5 +91,5 @@ This project exists thanks to all the people who contribute.
 
 ## License
 
-[MIT](https://github.com/weiensong/weiensong/blob/main/.universal/LICENSE) © weiensong
+[Apache License 2.0](https://github.com/weiensong/ctenopharyngodon-idella/blob/master/LICENSE) © weiensong
 
