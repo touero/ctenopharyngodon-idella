@@ -30,7 +30,7 @@ This repository contains：
 This project uses [Java](https://www.java.com/) [Git](https://git-scm.com/), Go check them out if you don't have them locally installed.
 
 ```shell
-$ git clone https://github.com/weiensong/ScrapySchoolAll.git
+git clone https://github.com/weiensong/ScrapySchoolAll.git
 ```
 
 
@@ -38,19 +38,19 @@ $ git clone https://github.com/weiensong/ScrapySchoolAll.git
 ## Usage
 - A truly distributed environment
 ```shell
-$ mvn package
+mvn package
 
 # in Master
-$ hadoop jar PackageName.jar
+hadoop jar PackageName.jar
 ```
 - Distributed environment simulated by Windows
 	- run initTest.bat directly as administrator 
 	- ```command
-		> cd /d "%~dp0"
-		> copy hadoop.dll C:\Windows\System32
-		> cd /src/main/java/job
-		> javac MyJob.java
-		> java MyJob
+		cd /d "%~dp0"
+		copy hadoop.dll C:\Windows\System32
+		cd /src/main/java/job
+		javac MyJob.java
+		java MyJob
 		```
 		
 		
