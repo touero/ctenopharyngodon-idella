@@ -40,7 +40,7 @@ git clone https://github.com/weiensong/ScrapySchoolAll.git
 ```shell
 mvn package
 
-# in Master
+# hdfs in Master
 hadoop jar PackageName.jar
 ```
 - Distributed environment simulated by Windows
